@@ -121,41 +121,31 @@ const insertData = async (client, data) => {
 
     for (const item of transformedData) {
         if (item.brand_id) {
-        await insertOrUpdateAttribute(
-            client,
-            item.brand_id,
-            item.brand_name,  
-            "brands"        
-        );
+            await insertOrUpdateAttribute(client, item.brand_id, item.brand_name, "brands");
         }
         if (item.mehanizm_id) {
-        await insertOrUpdateAttribute(
-            client,
-            item.mehanizm_id,
-            item.mehanizm_name,
-            "mehanizms" 
-        );
+            await insertOrUpdateAttribute( client, item.mehanizm_id, item.mehanizm_name, "mehanizms");
         }
         if (item.gender_id) {
-        await insertOrUpdateAttribute( client, item.gender_id, item.gender_name, "genders");
+            await insertOrUpdateAttribute( client, item.gender_id, item.gender_name, "genders");
         }
         if (item.shape_id) {
-        await insertOrUpdateAttribute( client, item.shape_id, item.shape_name, "shapes");
+            await insertOrUpdateAttribute( client, item.shape_id, item.shape_name, "shapes");
         }
         if (item.material_id) {
-        await insertOrUpdateAttribute( client, item.material_id, item.material_name, "materials");
+            await insertOrUpdateAttribute( client, item.material_id, item.material_name, "materials");
         }
         if (item.glass_id) {
-        await insertOrUpdateAttribute( client, item.glass_id, item.glass_name, "glasses");
+            await insertOrUpdateAttribute( client, item.glass_id, item.glass_name, "glasses");
         }
         if (item.strap_id) {
-        await insertOrUpdateAttribute( client, item.strap_id, item.strap_name, "straps");
+            await insertOrUpdateAttribute( client, item.strap_id, item.strap_name, "straps");
         }
         if (item.power_id) {
-        await insertOrUpdateAttribute( client, item.power_id, item.power_name, "powers");
+            await insertOrUpdateAttribute( client, item.power_id, item.power_name, "powers");
         }
         if (item.water_id) {
-        await insertOrUpdateAttribute( client, item.water_id, item.water_name, "waters");
+            await insertOrUpdateAttribute( client, item.water_id, item.water_name, "waters");
         }
         
         await client.query(query, [
