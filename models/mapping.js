@@ -153,7 +153,7 @@ Shape.hasMany(Product, {onDelete: 'RESTRICT'})
 Product.belongsTo(Shape)
 
 Material.hasMany(Product, {onDelete: 'RESTRICT'})
-Product.belongsTo(Shape)
+Product.belongsTo(Material)
 
 Glass.hasMany(Product, {onDelete: 'RESTRICT'})
 Product.belongsTo(Glass)

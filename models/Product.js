@@ -2,6 +2,14 @@ import pkg from 'sequelize';
 import { Product as ProductMapping } from './mapping.js';
 import { ProductProp as ProductPropMapping } from './mapping.js';
 import { Brand as BrandMapping } from './mapping.js';
+import { Mehanizm as MehanizmMapping } from './mapping.js';
+import { Gender as GenderMapping } from './mapping.js';
+import { Shape as ShapeMapping } from './mapping.js';
+import { Material as MaterialMapping } from './mapping.js';
+import { Glass as GlassMapping } from './mapping.js';
+import { Strap as StrapMapping } from './mapping.js';
+import { Power as PowerMapping } from './mapping.js';
+import { Water as WaterMapping } from './mapping.js';
 import { Category as CategoryMapping } from './mapping.js';
 import FileService from '../services/File.js';
 import AppError from '../errors/AppError.js';
@@ -48,6 +56,14 @@ class Product {
             offset,
             include: [
                 { model: BrandMapping, as: 'brand' },
+                { model: MehanizmMapping, as: 'mehanizm' },
+                { model: GenderMapping, as: 'gender' },
+                { model: ShapeMapping, as: 'shape' },
+                { model: MaterialMapping, as: 'material' },
+                { model: GlassMapping, as: 'glass' },
+                { model: StrapMapping, as: 'strap' },
+                { model: PowerMapping, as: 'power' },
+                { model: WaterMapping, as: 'water' },
                 { model: CategoryMapping, as: 'category' },
             ],
             order: getOrderArray(sortOrder),
@@ -60,6 +76,14 @@ class Product {
         include: [
             { model: ProductPropMapping, as: 'props' },
             { model: BrandMapping, as: 'brand' },
+            { model: MehanizmMapping, as: 'mehanizm' },
+            { model: GenderMapping, as: 'gender' },
+            { model: ShapeMapping, as: 'shape' },
+            { model: MaterialMapping, as: 'material' },
+            { model: GlassMapping, as: 'glass' },
+            { model: StrapMapping, as: 'strap' },
+            { model: PowerMapping, as: 'power' },
+            { model: WaterMapping, as: 'water' },
             { model: CategoryMapping, as: 'category' },
         ],
         });
