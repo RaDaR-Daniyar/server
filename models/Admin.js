@@ -14,7 +14,7 @@ import { Category as CategoryMapping } from './mapping.js';
 import FileService from '../services/File.js';
 import AppError from '../errors/AppError.js';
 
-class Product {
+class Catalog {
     async getAll(options) {
         const {categoryId, brandId, mehanizmId, genderId, shapeId, materialId, glassId, strapId, powerId, waterId, limit, page, searchTerm, sortOrder, minPrice, maxPrice} = options;
         const { Op } = pkg;
@@ -30,14 +30,6 @@ class Product {
         if (strapId) where.strapId = strapId;
         if (powerId) where.powerId = powerId;
         if (waterId) where.waterId = waterId;
-
-        if (searchTerm) {
-            where[Op.or] = [{ name: { [Op.iLike]: `%${searchTerm}%` } }];
-        }
-        where.price = {
-            [Op.gte]: minPrice,
-            [Op.lte]: maxPrice,
-        };
 
         function getOrderArray(sortOrder) {
             console.log(sortOrder);
@@ -176,4 +168,4 @@ class Product {
     }
 }
 
-export default new Product();
+export default new Catalog();

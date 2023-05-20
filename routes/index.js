@@ -14,6 +14,7 @@ import water from "./water.js";
 import user from "./user.js";
 import basket from "./basket.js";
 import rating from "./rating.js";
+import catalog from "./catalog.js";
 import order from "./order.js";
 import instagram from "./instagram.js";
 
@@ -34,6 +35,7 @@ router.use("/user", user);
 router.use("/basket", basket);
 router.use("/rating", rating);
 router.use("/order", order);
+router.use("/catalog", catalog)
 router.use("/", instagram);
 
 export default router;
