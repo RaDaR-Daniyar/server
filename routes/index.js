@@ -17,6 +17,7 @@ import rating from "./rating.js";
 import catalog from "./catalog.js";
 import order from "./order.js";
 import instagram from "./instagram.js";
+import similarCategories from "./similarCategories.js";
 
 const router = new express.Router();
 
@@ -35,7 +36,8 @@ router.use("/user", user);
 router.use("/basket", basket);
 router.use("/rating", rating);
 router.use("/order", order);
-router.use("/catalog", catalog)
+router.use("/catalog", catalog);
 router.use("/", instagram);
+router.use("/similar-categories", similarCategories);
 
 export default router;
