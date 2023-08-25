@@ -6,13 +6,15 @@ import { Brand as BrandMapping } from '../models/mapping.js';
 class Product {
     async getAll(req, res, next) {
         try {
-            const {categoryId = null, brandId = null, mehanizmId = null, genderId = null, shapeId = null, materialId = null, glassId = null, strapId = null, powerId = null, waterId = null} = req.params;
+            const {categoryId = null, brandId = null, mehanizmId = null, genderId = null, shapeId = null, materialId = null, 
+                glassId = null, strapId = null, powerId = null, waterId = null, brendId = null
+            } = req.params;
             let {limit = null, page = null, searchTerm = '', sortOrder = '', minPrice, maxPrice} = req.query;
             minPrice = parseInt(minPrice);
             maxPrice = parseInt(maxPrice);
             limit = limit && /[0-9]+/.test(limit) && parseInt(limit) ? parseInt(limit) : 3;
             page = page && /[0-9]+/.test(page) && parseInt(page) ? parseInt(page) : 1;
-            const options = {categoryId, brandId, mehanizmId, genderId, shapeId, materialId, glassId, strapId, powerId, waterId, limit, page, searchTerm, sortOrder, minPrice, maxPrice};
+            const options = {categoryId, brandId, mehanizmId, genderId, shapeId, materialId, glassId, strapId, powerId, waterId, brendId, limit, page, searchTerm, sortOrder, minPrice, maxPrice};
             const products = await ProductModel.getAll(options);
             res.json(products);
         } catch (e) {

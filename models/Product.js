@@ -10,13 +10,14 @@ import { Glass as GlassMapping } from './mapping.js';
 import { Strap as StrapMapping } from './mapping.js';
 import { Power as PowerMapping } from './mapping.js';
 import { Water as WaterMapping } from './mapping.js';
+import { Brend as BrendMapping } from './mapping.js';
 import { Category as CategoryMapping } from './mapping.js';
 import FileService from '../services/File.js';
 import AppError from '../errors/AppError.js';
 
 class Product {
     async getAll(options) {
-        const {categoryId, brandId, mehanizmId, genderId, shapeId, materialId, glassId, strapId, powerId, waterId, limit, page, searchTerm, sortOrder, minPrice, maxPrice} = options;
+        const {categoryId, brandId, mehanizmId, genderId, shapeId, materialId, glassId, strapId, powerId, waterId, brendId, limit, page, searchTerm, sortOrder, minPrice, maxPrice} = options;
         const { Op } = pkg;
         const offset = (page - 1) * limit;
         const where = {};
@@ -30,6 +31,7 @@ class Product {
         if (strapId) where.strapId = strapId;
         if (powerId) where.powerId = powerId;
         if (waterId) where.waterId = waterId;
+        if (brendId) where.brendId = brendId;
 
         if (searchTerm) {
             where[Op.or] = [{ name: { [Op.iLike]: `%${searchTerm}%` } }];
@@ -64,6 +66,7 @@ class Product {
                 { model: StrapMapping, as: 'strap' },
                 { model: PowerMapping, as: 'power' },
                 { model: WaterMapping, as: 'water' },
+                { model: BrendMapping, as: 'brend' },
                 { model: CategoryMapping, as: 'category' },
             ],
             order: getOrderArray(sortOrder),
@@ -84,6 +87,7 @@ class Product {
             { model: StrapMapping, as: 'strap' },
             { model: PowerMapping, as: 'power' },
             { model: WaterMapping, as: 'water' },
+            { model: BrendMapping, as: 'brend' },
             { model: CategoryMapping, as: 'category' },
         ],
         });
@@ -101,8 +105,10 @@ class Product {
     }
     async create(data, img) {
         const image = FileService.save(img) ?? '';
-        const {name, price, categoryId = null, brandId = null, mehanizmId = null, genderId = null, shapeId = null, materialId = null, glassId = null, strapId = null, powerId = null, waterId = null} = data;
-        const product = await ProductMapping.create({name, price, image, categoryId, brandId, mehanizmId, genderId, shapeId, materialId, glassId, strapId, powerId, waterId});
+        const {name, price, categoryId = null, brandId = null, mehanizmId = null, genderId = null, shapeId = null, materialId = null, 
+            glassId = null, strapId = null, powerId = null, waterId = null, brendId = null
+        } = data;
+        const product = await ProductMapping.create({name, price, image, categoryId, brandId, mehanizmId, genderId, shapeId, materialId, glassId, strapId, powerId, waterId, brendId});
         if (data.props) {
             const props = JSON.parse(data.props);
             for (let prop of props) {
@@ -142,9 +148,10 @@ class Product {
             strapId = product.strapId,
             powerId = product.powerId,
             waterId = product.waterId,
+            brendId = product.brendId,
             image = file ? file : product.image,
         } = data;
-        await product.update({name, price, categoryId, image, brandId, mehanizmId, genderId, shapeId, materialId, glassId, strapId, powerId, waterId});
+        await product.update({name, price, categoryId, image, brandId, mehanizmId, genderId, shapeId, materialId, glassId, strapId, powerId, waterId, brendId});
         if (data.props) {
             await ProductPropMapping.destroy({ where: { productId: id } });
             const props = JSON.parse(data.props);
