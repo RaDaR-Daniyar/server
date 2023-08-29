@@ -511,6 +511,8 @@ router.get('/getall/glassId/:glassId([0-9]+)/strapId/:strapId([0-9]+)', ProductC
 router.get('/getall/glassId/:glassId([0-9]+)/waterId/:waterId([0-9]+)', ProductController.getAll)
 router.get('/getall/strapId/:strapId([0-9]+)/waterId/:waterId([0-9]+)', ProductController.getAll)
 
+router.get('/getall/brandId/:brandId([0-9]+)/brendId/:brendId([0-9]+)', ProductController.getAll)
+
 router.get('/getall/powerId/:powerId([0-9]+)', ProductController.getAll)
 router.get('/getall/brandId/:brandId([0-9]+)', ProductController.getAll)
 router.get('/getall/mehanizmId/:mehanizmId([0-9]+)', ProductController.getAll)
