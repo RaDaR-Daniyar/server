@@ -42,7 +42,7 @@ router.get("/:productId", async (req, res) => {
         "JOIN genders g ON p.gender_id = g.id " +
         "JOIN brend h ON p.brend_id = h.id " +
         "JOIN brands b ON p.brand_id = b.id " +
-        "WHERE g.name = $1 AND b.name = $2",
+        "WHERE g.name = $1 AND b.name = $2 AND h.name = $3",
       [gender, brend, brand]
     );
     const sameGenderAndBrandProducts = productsRes.rows;
