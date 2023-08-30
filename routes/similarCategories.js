@@ -20,7 +20,7 @@ router.get("/:productId", async (req, res) => {
 
     // Извлекаем выбранный продукт из базы данных вместе с его полом и брендом
     const productRes = await client.query(
-      "SELECT p.*, g.name as gender, h.name as brend, b.name as brand FROM products p " +
+      "SELECT p.*, g.name as gender, b.name as brand FROM products p " +
         "JOIN genders g ON p.gender_id = g.id " +
         "JOIN brands b ON p.brand_id = b.id " +
         "WHERE p.id = $1",
