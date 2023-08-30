@@ -34,15 +34,16 @@ router.get("/:productId", async (req, res) => {
       return;
     }
 
-    const { gender, brand } = selectedProduct;
+    const { gender, brend, brand } = selectedProduct;
 
     // Извлекаем из бд все продукты одного пола и марки
     const productsRes = await client.query(
-      "SELECT p.*, g.name as gender, b.name as brand FROM products p " +
+      "SELECT p.*, g.name as gender, h.name as brend, b.name as brand FROM products p " +
         "JOIN genders g ON p.gender_id = g.id " +
+        "JOIN brend h ON p.brend_id = h.id " +
         "JOIN brands b ON p.brand_id = b.id " +
         "WHERE g.name = $1 AND b.name = $2",
-      [gender, brand]
+      [gender, brend, brand]
     );
     const sameGenderAndBrandProducts = productsRes.rows;
 
