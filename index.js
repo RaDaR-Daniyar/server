@@ -9,7 +9,7 @@ import router from "./routes/index.js";
 import errorMiddleware from "./middleware/errorMiddleware.js";
 import fetchData from "./routes/fetchProducts.js";
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 7000;
 const app = express();
 app.use(cors({ origin: ["http://localhost:3000"], credentials: true }));
 app.use(express.json());
