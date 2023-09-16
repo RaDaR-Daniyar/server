@@ -7,6 +7,7 @@ import adminMiddleware from '../middleware/adminMiddleware.js'
 const router = new express.Router()
 
 router.get('/getall', CatalogController.getAll)
+router.get('/getrandom', CatalogController.getRandom)
 router.get('/getone/:id([0-9]+)', CatalogController.getOne)
 router.post('/create', CatalogController.create)
 router.put('/update/:id([0-9]+)', CatalogController.update)

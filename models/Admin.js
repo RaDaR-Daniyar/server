@@ -31,6 +31,10 @@ class Catalog {
         if (powerId) where.powerId = powerId;
         if (waterId) where.waterId = waterId;
 
+        if (searchTerm) {
+            where[Op.or] = [{ name: { [Op.iLike]: `%${searchTerm}%` } }];
+        }
+
         function getOrderArray(sortOrder) {
             console.log(sortOrder);
             switch (sortOrder) {
@@ -110,6 +114,11 @@ class Catalog {
         });
         return created;
     }
+
+    async getCount() {
+        return await ProductMapping.count();
+    }
+
     async update(id, data, img) {
         const product = await ProductMapping.findByPk(id, {
             include: [{ model: ProductPropMapping, as: 'props' }],
