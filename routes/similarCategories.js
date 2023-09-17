@@ -18,7 +18,6 @@ router.get("/:productId", async (req, res) => {
   try {
     await client.connect();
 
-    // Извлекаем выбранный продукт из базы данных вместе с его полом и брендом
     const productRes = await client.query(
       "SELECT p.*, g.name as gender, b.name as brand FROM products p " +
         "JOIN genders g ON p.gender_id = g.id " +
@@ -35,7 +34,6 @@ router.get("/:productId", async (req, res) => {
 
     const { gender, brand } = selectedProduct;
 
-    // Извлекаем из бд все продукты одного пола и марки
     const productsRes = await client.query(
       "SELECT p.*, g.name as gender, b.name as brand FROM products p " +
         "JOIN genders g ON p.gender_id = g.id " +
@@ -43,12 +41,13 @@ router.get("/:productId", async (req, res) => {
         "WHERE g.name = $1 AND b.name = $2",
       [gender, brand]
     );
+
     if (productsRes.rows.length){
       if (productsRes.rows.length > 21) {
-        productRes.rows.length = 21;
+        productsRes.rows.length = 21;
       }
 
-      var sameGenderAndBrandProducts = productsRes.rows.slice(1);
+      var sameGenderAndBrandProducts = productsRes.rows.filter(product => product.id !== selectedProduct.id);
     }
 
 
@@ -74,10 +73,9 @@ router.get("/brend/:productId", async (req, res) => {
   try {
     await client.connect();
 
-    // Извлекаем выбранный продукт из базы данных вместе с его полом и брендом
     const productRes = await client.query(
       "SELECT p.*, g.name as gender, b.name as brand FROM products p " +
-        "JOIN genders g ON p.gender_id = g.id " +
+        "JOIN brends g ON p.brend_id = g.id " +
         "JOIN brands b ON p.brand_id = b.id " +
         "WHERE p.id = $1",
       [productId]
@@ -90,20 +88,20 @@ router.get("/brend/:productId", async (req, res) => {
     }
 
     const { brend_id } = selectedProduct;
-    console.log(selectedProduct)
-    // Извлекаем из бд все продукты одного пола и марки
+
     const productsRes = await client.query(
       "SELECT p.*, g.id as gender FROM products p " +
         "JOIN brends g ON p.brend_id = g.id " +
+        "JOIN brands b ON p.brand_id = b.id " +
         "WHERE g.id = $1",
       [brend_id]
     );
-    if (productsRes.rows.length){
+    if (productsRes.rows.length) {
       if (productsRes.rows.length > 21) {
-        productRes.rows.length = 21;
+        productsRes.rows.length = 21;
       }
 
-      var brendProducts = productsRes.rows.slice(1);
+      var brendProducts = productsRes.rows.filter(product => product.id !== selectedProduct.id);;
     }
 
 
