@@ -16,15 +16,12 @@ class Product {
             next(AppError.badRequest(e.message))
         }
     }
-    // Выдает рандомные товары
     async getRandom(req, res, next) {
         try {
             const { categoryId = null, brandId = null } = req.params;
 
             const count = await CatalogtModel.getCount();
-
-            // Генерирует номер рандомной страницы из 35 продуктов
-            const randomPage = Math.floor(Math.random() * (Math.floor(count / 35) - 1 + 1)) + 1;
+            const randomPage = Math.floor(Math.random() * (Math.floor(count / 35) - 1 + 1)) + 2;
 
             if (!randomPage) {
                 randomPage = 1;
@@ -32,10 +29,8 @@ class Product {
 
             const options = { categoryId, brandId, limit: 35, page: randomPage }
             const products = await CatalogtModel.getAll(options);
-
-            // Перемешивает список продуктов
             const finalyProducts = products.rows.sort(() => Math.random() - 0.5);
-            // Уменьшает список до 25 продуктов
+            
             if (finalyProducts.length > 25) {
                 finalyProducts.length = 25;
             }

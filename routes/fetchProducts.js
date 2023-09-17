@@ -244,7 +244,6 @@ router.get("/load-data", async (req, res) => {
   const products = await makeApiRequest();
 
   await loadProductsToPostgreSQL(products);
-  //   res.send("Data inserted successfully");
   res.send(products);
 });
 
@@ -252,7 +251,6 @@ router.get("api/products/:productId", async (req, res) => {
   const { productId } = req.params;
   const products = await makeApiRequest();
 
-  // Находим товар с указанным id.
   const selectedProduct = products.find((product) => product.id === productId);
 
   if (!selectedProduct) {
@@ -260,7 +258,6 @@ router.get("api/products/:productId", async (req, res) => {
     return;
   }
 
-  // Находим атрибут коллекции в товаре.
   const collectionAttribute = selectedProduct.attributes.find(
     (attr) => attr.attribute.name === "Коллекция"
   );
@@ -272,7 +269,6 @@ router.get("api/products/:productId", async (req, res) => {
 
   const collectionId = collectionAttribute.value.id;
 
-  // Находим все товары этой коллекции.
   const sameCollectionProducts = products.filter((product) => {
     const productCollectionAttr = product.attributes.find(
       (attr) => attr.attribute.name === "Коллекция"
