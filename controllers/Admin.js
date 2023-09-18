@@ -21,7 +21,7 @@ class Product {
             const { categoryId = null, brandId = null } = req.params;
 
             const count = await CatalogtModel.getCount();
-            const randomPage = Math.floor(Math.random() * (Math.floor(count / 35) - 1 + 1)) + 2;
+            const randomPage = Math.floor(Math.random() * (Math.floor(count / 35) - 1 + 1)) + 1;
 
             if (!randomPage) {
                 randomPage = 1;
@@ -29,8 +29,8 @@ class Product {
 
             const options = { categoryId, brandId, limit: 35, page: randomPage }
             const products = await CatalogtModel.getAll(options);
+
             const finalyProducts = products.rows.sort(() => Math.random() - 0.5);
-            
             if (finalyProducts.length > 25) {
                 finalyProducts.length = 25;
             }
