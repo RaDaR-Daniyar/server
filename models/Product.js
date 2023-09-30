@@ -105,7 +105,7 @@ class Product {
     }
     async create(data, img) {
         const image = FileService.save(img) ?? '';
-        const {name, price, categoryId = null, brandId = null, mehanizmId = null, genderId = null, shapeId = null, materialId = null, 
+        const {name, price, categoryId = null, brandId = null, mehanizmId = null, genderId = null, shapeId = null, materialId = null,
             glassId = null, strapId = null, powerId = null, waterId = null, brendId = null
         } = data;
         const product = await ProductMapping.create({name, price, image, categoryId, brandId, mehanizmId, genderId, shapeId, materialId, glassId, strapId, powerId, waterId, brendId});
@@ -135,7 +135,7 @@ class Product {
         if (file && product.image) {
             FileService.delete(product.image);
         }
-        const {
+        let {
             name = product.name,
             price = product.price,
             categoryId = product.categoryId,
@@ -151,6 +151,18 @@ class Product {
             brendId = product.brendId,
             image = file ? file : product.image,
         } = data;
+        if(categoryId === 'null') categoryId = null;
+        if(brandId === 'null') brandId = null;
+        if(mehanizmId === 'null') mehanizmId = null;
+        if(genderId === 'null') genderId = null;
+        if(shapeId === 'null') shapeId = null;
+        if(materialId === 'null') materialId = null;
+        if(glassId === 'null') glassId = null;
+        if(strapId === 'null') strapId = null;
+        if(powerId === 'null') powerId = null;
+        if(waterId === 'null') waterId = null;
+        if(brendId === 'null') brendId = null;
+
         await product.update({name, price, categoryId, image, brandId, mehanizmId, genderId, shapeId, materialId, glassId, strapId, powerId, waterId, brendId});
         if (data.props) {
             await ProductPropMapping.destroy({ where: { productId: id } });
