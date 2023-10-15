@@ -21,7 +21,7 @@ const BasketProduct = sequelize.define('basket_product', {
 const Product = sequelize.define('product', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
-    price: {type: DataTypes.INTEGER, allowNull: false},
+    price: { type: DataTypes.INTEGER, allowNull: false },
     rating: {type: DataTypes.INTEGER, defaultValue: 0},
     image: {type: DataTypes.STRING, allowNull: false},
 })
@@ -77,6 +77,36 @@ const Water = sequelize.define('water', {
 })
 
 const Brend = sequelize.define('brend', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    name: {type: DataTypes.STRING, unique: true, allowNull: false},
+})
+
+const Collection = sequelize.define('collection', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    name: {type: DataTypes.STRING, unique: true, allowNull: false},
+})
+
+const Type = sequelize.define('type', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    name: {type: DataTypes.STRING, unique: true, allowNull: false},
+})
+
+const Thic = sequelize.define('thic', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    name: {type: DataTypes.STRING, unique: true, allowNull: false},
+})
+
+const Color = sequelize.define('color', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    name: {type: DataTypes.STRING, unique: true, allowNull: false},
+})
+
+const Fin = sequelize.define('fin', {
+    id: {type: DataTypes.INTEGER, primaryKey: true},
+    name: {type: DataTypes.STRING, unique: true, allowNull: false},
+})
+
+const Mat = sequelize.define('mat', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
 })
@@ -172,9 +202,6 @@ Product.belongsTo(Power)
 Water.hasMany(Product, {onDelete: 'RESTRICT'})
 Product.belongsTo(Water)
 
-Brend.hasMany(Product, {onDelete: 'RESTRICT'})
-Product.belongsTo(Brend)
-
 Product.belongsToMany(User, {through: Rating, onDelete: 'CASCADE'})
 User.belongsToMany(Product, {through: Rating, onDelete: 'CASCADE'})
 
@@ -185,6 +212,27 @@ Rating.belongsTo(User)
 
 Product.hasMany(ProductProp, {as: 'props', onDelete: 'CASCADE'})
 ProductProp.belongsTo(Product)
+
+Brend.hasMany(Product, {onDelete: 'RESTRICT'})
+Product.belongsTo(Brend)
+
+Collection.hasMany(Product, {onDelete: 'RESTRICT'})
+Product.belongsTo(Brend)
+
+Type.hasMany(Product, {onDelete: 'RESTRICT'})
+Product.belongsTo(Type)
+
+Thic.hasMany(Product, {onDelete: 'RESTRICT'})
+Product.belongsTo(Thic)
+
+Fin.hasMany(Product, {onDelete: 'RESTRICT'})
+Product.belongsTo(Fin)
+
+Color.hasMany(Product, {onDelete: 'RESTRICT'})
+Product.belongsTo(Color)
+
+Mat.hasMany(Product, {onDelete: 'RESTRICT'})
+Product.belongsTo(Mat)
 
 Order.hasMany(OrderItem, {as: 'items', onDelete: 'CASCADE'})
 OrderItem.belongsTo(Order)
@@ -208,6 +256,12 @@ export {
     Power,
     Water,
     Brend,
+    Collection,
+    Type,
+    Thic,
+    Color,
+    Fin,
+    Mat,
     BasketProduct,
     ProductProp,
     Order,

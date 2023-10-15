@@ -106,9 +106,10 @@ class Product {
     async create(data, img) {
         const image = FileService.save(img) ?? '';
         const {name, price, categoryId = null, brandId = null, mehanizmId = null, genderId = null, shapeId = null, materialId = null,
-            glassId = null, strapId = null, powerId = null, waterId = null, brendId = null
+            glassId = null, strapId = null, powerId = null, waterId = null, brendId = null, finId = null
         } = data;
-        const product = await ProductMapping.create({name, price, image, categoryId, brandId, mehanizmId, genderId, shapeId, materialId, glassId, strapId, powerId, waterId, brendId});
+        console.log(finId)
+        const product = await ProductMapping.create({name, price, image, categoryId, brandId, mehanizmId, genderId, shapeId, materialId, glassId, strapId, powerId, waterId, brendId, finId});
         if (data.props) {
             const props = JSON.parse(data.props);
             for (let prop of props) {
@@ -135,6 +136,7 @@ class Product {
         if (file && product.image) {
             FileService.delete(product.image);
         }
+        console.log(data.finId)
         let {
             name = product.name,
             price = product.price,
@@ -149,6 +151,7 @@ class Product {
             powerId = product.powerId,
             waterId = product.waterId,
             brendId = product.brendId,
+            finId = product.finId,
             image = file ? file : product.image,
         } = data;
         if(categoryId === 'null') categoryId = null;
@@ -162,8 +165,10 @@ class Product {
         if(powerId === 'null') powerId = null;
         if(waterId === 'null') waterId = null;
         if(brendId === 'null') brendId = null;
+        if(finId === 'null') finId = null;
 
-        await product.update({name, price, categoryId, image, brandId, mehanizmId, genderId, shapeId, materialId, glassId, strapId, powerId, waterId, brendId});
+
+        await product.update({name, price, categoryId, image, brandId, mehanizmId, genderId, shapeId, materialId, glassId, strapId, powerId, waterId, brendId, finId});
         if (data.props) {
             await ProductPropMapping.destroy({ where: { productId: id } });
             const props = JSON.parse(data.props);

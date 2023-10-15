@@ -19,9 +19,11 @@ import catalog from "./catalog.js";
 import order from "./order.js";
 import instagram from "./instagram.js";
 import similarCategories from "./similarCategories.js";
+import sale from "./sale.js"
 
 const router = new express.Router();
 
+router.use("/sale", sale);
 router.use("/product", product);
 router.use("/category", category);
 router.use("/brand", brand);
