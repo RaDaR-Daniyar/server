@@ -74,7 +74,7 @@ router.get("/brend/:productId", async (req, res) => {
     await client.connect();
 
     const productRes = await client.query(
-      "SELECT p.*, g.name as gender, b.name as brand FROM products p " +
+      "SELECT p.*, g.name as brend, b.name as brand FROM products p " +
         "JOIN brends g ON p.brend_id = g.id " +
         "JOIN brands b ON p.brand_id = b.id " +
         "WHERE p.id = $1",
@@ -90,7 +90,7 @@ router.get("/brend/:productId", async (req, res) => {
     const { brend_id } = selectedProduct;
 
     const productsRes = await client.query(
-      "SELECT p.*, g.id as gender FROM products p " +
+      "SELECT p.*, g.id as brend FROM products p " +
         "JOIN brends g ON p.brend_id = g.id " +
         "JOIN brands b ON p.brand_id = b.id " +
         "WHERE g.id = $1",
