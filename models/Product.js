@@ -12,12 +12,31 @@ import { Power as PowerMapping } from './mapping.js';
 import { Water as WaterMapping } from './mapping.js';
 import { Brend as BrendMapping } from './mapping.js';
 import { Category as CategoryMapping } from './mapping.js';
+import { Fin as FinMapping } from './mapping.js';
 import FileService from '../services/File.js';
 import AppError from '../errors/AppError.js';
 
 class Product {
     async getAll(options) {
-        const {categoryId, brandId, mehanizmId, genderId, shapeId, materialId, glassId, strapId, powerId, waterId, brendId, limit, page, searchTerm, sortOrder, minPrice, maxPrice} = options;
+        const {
+            categoryId,
+            brandId,
+            mehanizmId,
+            genderId, shapeId,
+            materialId,
+            glassId,
+            strapId,
+            powerId,
+            waterId,
+            brendId,
+            limit,
+            page,
+            searchTerm,
+            sortOrder,
+            minPrice,
+            maxPrice,
+            sale
+        } = options;
         const { Op } = pkg;
         const offset = (page - 1) * limit;
         const where = {};
@@ -40,6 +59,13 @@ class Product {
             [Op.gte]: minPrice,
             [Op.lte]: maxPrice,
         };
+        if (sale) {
+            where.finId = {
+                [Op.gte]: '1',
+                [Op.lte]: '100',
+            }
+        }
+        console.log(where)
 
         function getOrderArray(sortOrder) {
             console.log(sortOrder);
@@ -57,16 +83,17 @@ class Product {
             limit,
             offset,
             include: [
+                { model: FinMapping, as: 'fin' },
                 { model: BrandMapping, as: 'brand' },
-                { model: MehanizmMapping, as: 'mehanizm' },
-                { model: GenderMapping, as: 'gender' },
                 { model: ShapeMapping, as: 'shape' },
-                { model: MaterialMapping, as: 'material' },
                 { model: GlassMapping, as: 'glass' },
                 { model: StrapMapping, as: 'strap' },
                 { model: PowerMapping, as: 'power' },
                 { model: WaterMapping, as: 'water' },
                 { model: BrendMapping, as: 'brend' },
+                { model: GenderMapping, as: 'gender' },
+                { model: MaterialMapping, as: 'material' },
+                { model: MehanizmMapping, as: 'mehanizm' },
                 { model: CategoryMapping, as: 'category' },
             ],
             order: getOrderArray(sortOrder),
