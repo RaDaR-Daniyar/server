@@ -6,9 +6,10 @@ import { Brand as BrandMapping } from '../models/mapping.js';
 class Product {
     async getAll(req, res, next) {
         try {
-            let { categoryId = null, brandId = null, mehanizmId = null, genderId = null, shapeId = null, materialId = null,
-                glassId = null, strapId = null, powerId = null, waterId = null, brendId = null, limit = null, page = null, searchTerm = '', sortOrder = '', minPrice, maxPrice, sale } = req.query;
-
+            const {categoryId = null, brandId = null, mehanizmId = null, genderId = null, shapeId = null, materialId = null,
+                glassId = null, strapId = null, powerId = null, waterId = null, brendId = null,
+            } = req.params;
+            let { limit = null, page = null, searchTerm = '', sortOrder = '', minPrice, maxPrice, sale } = req.query;
             sale = (sale === 'true');
             minPrice = parseInt(minPrice);
             maxPrice = parseInt(maxPrice);
