@@ -1,0 +1,40 @@
+{
+  "name": "shop-server",
+  "version": "1.0.0",
+  "description": "Интернет магазин",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "Backend",
+    "JavaScript",
+    "Node.js",
+    "Express.js",
+    "PostgreSQL",
+    "sequelize"
+  ],
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "axios": "^1.3.4",
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
+    "jsonwebtoken": "^8.5.1",
+    "md5": "^2.3.0",
+    "node-cron": "^3.0.2",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "querystring": "^0.2.1",
+    "sequelize": "^6.9.0",
+    "uuid": "^8.3.2"
+  }
+}
