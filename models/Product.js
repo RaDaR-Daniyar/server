@@ -65,10 +65,8 @@ class Product {
                 [Op.lte]: '100',
             }
         }
-        console.log(where)
 
         function getOrderArray(sortOrder) {
-            console.log(sortOrder);
             switch (sortOrder) {
                 case 'less':
                 return [['price', 'ASC']];
@@ -133,10 +131,11 @@ class Product {
     async create(data, img) {
         const image = FileService.save(img) ?? '';
         const {name, price, categoryId = null, brandId = null, mehanizmId = null, genderId = null, shapeId = null, materialId = null,
-            glassId = null, strapId = null, powerId = null, waterId = null, brendId = null, finId = null
+            glassId = null, strapId = null, powerId = null, waterId = null, brendId = null, finId = null, kaspi = ''
         } = data;
-        console.log(finId)
-        const product = await ProductMapping.create({name, price, image, categoryId, brandId, mehanizmId, genderId, shapeId, materialId, glassId, strapId, powerId, waterId, brendId, finId});
+        const product = await ProductMapping.create({name, price, image, silka: kaspi, categoryId, brandId, mehanizmId, genderId, shapeId, materialId, glassId, strapId, powerId, waterId, brendId, finId});
+        console.log(kaspi)
+        
         if (data.props) {
             const props = JSON.parse(data.props);
             for (let prop of props) {
@@ -163,7 +162,7 @@ class Product {
         if (file && product.image) {
             FileService.delete(product.image);
         }
-        console.log(data.finId)
+
         let {
             name = product.name,
             price = product.price,
@@ -179,6 +178,7 @@ class Product {
             waterId = product.waterId,
             brendId = product.brendId,
             finId = product.finId,
+            kaspi = product.silka,
             image = file ? file : product.image,
         } = data;
         if(categoryId === 'null') categoryId = null;
@@ -193,9 +193,9 @@ class Product {
         if(waterId === 'null') waterId = null;
         if(brendId === 'null') brendId = null;
         if(finId === 'null') finId = null;
-
-
-        await product.update({name, price, categoryId, image, brandId, mehanizmId, genderId, shapeId, materialId, glassId, strapId, powerId, waterId, brendId, finId});
+        if(kaspi === '') kaspi = ''
+        
+        await product.update({name, price, silka: kaspi, categoryId, image, brandId, mehanizmId, genderId, shapeId, materialId, glassId, strapId, powerId, waterId, brendId, finId});
         if (data.props) {
             await ProductPropMapping.destroy({ where: { productId: id } });
             const props = JSON.parse(data.props);
@@ -207,6 +207,7 @@ class Product {
                 });
             }
         }
+        
         await product.reload();
         return product;
     }

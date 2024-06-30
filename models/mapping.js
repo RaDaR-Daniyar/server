@@ -24,6 +24,7 @@ const Product = sequelize.define('product', {
     price: { type: DataTypes.INTEGER, allowNull: false },
     rating: {type: DataTypes.INTEGER, defaultValue: 0},
     image: {type: DataTypes.STRING, allowNull: false},
+    silka: {type: DataTypes.STRING, allowNull: true, defaultValue: ''},
 })
 
 const Category = sequelize.define('category', {
@@ -83,7 +84,7 @@ const Brend = sequelize.define('brend', {
 
 const Collection = sequelize.define('collection', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING, unique: true, allowNull: false},
+    name: {type: DataTypes.STRING, allowNull: false},
 })
 
 const Type = sequelize.define('type', {
@@ -216,8 +217,8 @@ ProductProp.belongsTo(Product)
 Brend.hasMany(Product, {onDelete: 'RESTRICT'})
 Product.belongsTo(Brend)
 
-Collection.hasMany(Product, {onDelete: 'RESTRICT'})
-Product.belongsTo(Brend)
+Product.hasMany(Collection, {as: 'collection', onDelete: 'CASCADE'})
+Collection.belongsTo(Product)
 
 Type.hasMany(Product, {onDelete: 'RESTRICT'})
 Product.belongsTo(Type)

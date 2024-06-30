@@ -36,7 +36,6 @@ class Catalog {
         }
 
         function getOrderArray(sortOrder) {
-            console.log(sortOrder);
             switch (sortOrder) {
                 case 'less':
                 return [['price', 'ASC']];
@@ -97,8 +96,9 @@ class Catalog {
     }
     async create(data, img) {
         const image = FileService.save(img) ?? '';
-        const {name, price, categoryId = null, brandId = null, mehanizmId = null, genderId = null, shapeId = null, materialId = null, glassId = null, strapId = null, powerId = null, waterId = null} = data;
-        const product = await ProductMapping.create({name, price, image, categoryId, brandId, mehanizmId, genderId, shapeId, materialId, glassId, strapId, powerId, waterId});
+        const {name, price, categoryId = null, brandId = null, mehanizmId = null, genderId = null, shapeId = null, materialId = null, glassId = null, strapId = null, powerId = null, waterId = null, kaspi = ''} = data;
+
+        const product = await ProductMapping.create({name, price, image, silka: kaspi ,categoryId, brandId, mehanizmId, genderId, shapeId, materialId, glassId, strapId, powerId, waterId});
         if (data.props) {
             const props = JSON.parse(data.props);
             for (let prop of props) {
@@ -109,6 +109,8 @@ class Catalog {
                 });
             }
         }
+        
+        
         const created = await ProductMapping.findByPk(product.id, {
             include: [{ model: ProductPropMapping, as: 'props' }],
         });
@@ -120,6 +122,7 @@ class Catalog {
     }
 
     async update(id, data, img) {
+        
         const product = await ProductMapping.findByPk(id, {
             include: [{ model: ProductPropMapping, as: 'props' }],
         });
@@ -157,6 +160,8 @@ class Catalog {
                 });
             }
         }
+        
+        
         await product.reload();
         return product;
     }
